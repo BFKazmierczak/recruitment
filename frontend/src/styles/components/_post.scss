@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as *;
+
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 15px;
+  border-radius: 16px;
+  box-shadow: $global-shadow-lg;
+  font-weight: 300;
+}
+
+.post-author {
+  display: flex;
+  gap: 5px;
+  justify-items: center;
+  align-items: center;
+  font-size: 13px;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: $color-primary;
+}
+
+.post-meta {
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.post-body {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.post-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  gap: 5px;
+  border-radius: 8px;
+}

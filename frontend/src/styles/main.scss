@@ -1,7 +1,7 @@
 @use 'abstracts';
-@use 'base/typography' as *;
-@use 'components/buttons';
-@use 'layout/navbar';
+@use 'base' as *;
+@use 'components' as *;
+@use 'layout' as *;
 
 body {
   font-family: $font-family-base;

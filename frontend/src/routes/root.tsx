@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import { Navbar } from '../components/layout';
-import '../styles/main.scss';
+import { Board } from '@/src/components/layout';
+import '@/src/styles/main.scss';
 
 const Root: FC = () => {
   return (
-    <div>
-      <Navbar />
+    <div className="route">
+      <Board />
     </div>
   );
 };

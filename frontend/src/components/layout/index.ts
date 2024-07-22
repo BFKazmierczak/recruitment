@@ -1,3 +1,5 @@
+import Board from './Board';
 import Navbar from './Navbar';
+import Post from './Post/Post';
 
-export { Navbar };
+export { Navbar, Board, Post };

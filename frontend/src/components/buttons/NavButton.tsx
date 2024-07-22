@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
+import '@/src/styles/main.scss';
 import { Tooltip } from '@mui/material';
-
-import '../../styles/main.scss';
 
 interface NavButtonProps {
   children: ReactNode;

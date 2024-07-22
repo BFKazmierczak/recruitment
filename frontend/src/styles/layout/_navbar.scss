@@ -1,6 +1,8 @@
 @use '../abstracts/variables' as *;
 
 .navbar {
+  position: sticky;
+  bottom: 5px;
   display: flex;
   gap: 10px;
   padding-block: 10px;

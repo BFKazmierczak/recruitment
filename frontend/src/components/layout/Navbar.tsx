@@ -1,12 +1,11 @@
 import { FC } from 'react';
 
+import { NavButton } from '@/src/components/buttons';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import MailIcon from '@mui/icons-material/Mail';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
-
-import { NavButton } from '../buttons';
 
 const Navbar: FC = () => {
   const navbarOptions = [

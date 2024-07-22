@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
+import '@/src/styles/main.scss';
 import { Box, Paper, Typography } from '@mui/material';
-
-import './styles/main.scss';
 
 const App: FC = () => {
   return (
