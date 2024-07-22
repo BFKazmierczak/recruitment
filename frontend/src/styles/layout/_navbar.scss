@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as *;
+
+.navbar {
+  display: flex;
+  gap: 10px;
+  padding-block: 10px;
+  padding-inline: 40px;
+  justify-content: space-between;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: $global-shadow-lg;
+}
