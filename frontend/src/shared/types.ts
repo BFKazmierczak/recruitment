@@ -1,7 +1,7 @@
 export type PostType = {
-  postId: string;
-  created: number;
-  edited: number;
+  id: number;
+  createdAt: number;
+  editedAt?: number;
   author: string;
-  body: string;
+  content: string;
 };
