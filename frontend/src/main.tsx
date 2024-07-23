@@ -37,6 +37,16 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Root />,
+        errorElement: <ErrorPage />,
+        loader: rootLoader,
+      },
+      {
+        path: '/messages',
+        element: <Messages />,
+      },
+      {
+        path: '/add',
+        element: <Add />,
       },
     ],
   },
