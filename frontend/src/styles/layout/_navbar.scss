@@ -1,10 +1,33 @@
 @use '../abstracts/variables' as *;
 
-.navbar {
-  position: sticky;
+.navbar-container {
+  position: fixed;
   bottom: 5px;
   display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.navbar-post-button {
+  box-shadow: $global-shadow-lg;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  width: 40px;
+  &:hover {
+    background-color: lighten(black, $amount: 25%);
+  }
+  &:active {
+    background-color: $color-primary;
+  }
+}
+
+.navbar {
+  position: relative;
+  display: flex;
   gap: 10px;
+  margin-inline: 10px;
+  width: 100%;
   padding-block: 10px;
   padding-inline: 40px;
   justify-content: space-between;

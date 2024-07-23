@@ -11,7 +11,10 @@
 }
 
 .post-author {
+  position: relative;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   gap: 5px;
   justify-items: center;
   align-items: center;
