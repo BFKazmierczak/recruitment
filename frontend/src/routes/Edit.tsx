@@ -11,7 +11,7 @@ const Edit = () => {
   return (
     <div className="route">
       <h2>Editing post {post.id}</h2>
-      <PostForm editing initialContent={post.content} />
+      <PostForm post={post} />
     </div>
   );
 };

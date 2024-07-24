@@ -19,6 +19,10 @@ const postsSlice = createSlice({
       state.previousLength = state.data.length;
       state.data = [...action.payload, ...state.data];
     },
+    replacePost: (state, action: PayloadAction<PostType>) => {
+      const postIndex = state.data.findIndex((post) => post.id === action.payload.id);
+      if (postIndex >= 0) state.data[postIndex] = action.payload;
+    },
     removePost: (state, action: PayloadAction<PostType>) => {
       state.previousLength = state.data.length;
       state.data = state.data.filter((post) => post.id !== action.payload.id);
@@ -26,5 +30,5 @@ const postsSlice = createSlice({
   },
 });
 
-export const { addPosts, removePost } = postsSlice.actions;
+export const { addPosts, replacePost, removePost } = postsSlice.actions;
 export default postsSlice.reducer;
