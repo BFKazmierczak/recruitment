@@ -1,16 +1,11 @@
-import { useSelector } from 'react-redux';
-
+import { PostType } from '../shared/types';
 import { addPosts } from '../state/posts/postsSlice';
-import { RootState, store } from '../state/store';
+import { store } from '../state/store';
 
 async function rootLoader({ params }) {
-  const posts = store.getState().posts.data;
-
-  console.log('Posts in rootLoader:', posts);
+  const { data: posts, previousLength } = store.getState().posts;
 
   if (posts.length) {
-    console.log(posts[0]);
-
     // _gt filter does is implemented in json-server >= 1.0.0 which does not work
     const filters = `id_gte=${posts[0].id}&_sort=id&_order=desc`;
 
@@ -18,11 +13,16 @@ async function rootLoader({ params }) {
       method: 'GET',
     });
 
-    const newPosts = await response.json();
+    const newPosts: PostType[] = await response.json();
+    const mappedPosts = newPosts.slice(0, newPosts.length - 1).map((post) => ({ ...post, new: true }));
 
-    console.log({ newPosts });
+    const merged = [...mappedPosts, ...posts];
 
-    return posts;
+    if (mappedPosts.length) store.dispatch(addPosts(mappedPosts));
+
+    return {
+      posts: merged,
+    };
   }
 
   try {
@@ -38,7 +38,9 @@ async function rootLoader({ params }) {
 
     store.dispatch(addPosts(fetchedPosts));
 
-    return fetchedPosts;
+    return {
+      posts: fetchedPosts,
+    };
   } catch (error) {
     throw new Error('We were unable to get new posts. Please try to refresh the page.');
   }
