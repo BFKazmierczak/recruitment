@@ -40,6 +40,7 @@ const modalStyle: SxProps = {
 };
 
 const Post = ({ post }: PostProps) => {
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -52,6 +53,11 @@ const Post = ({ post }: PostProps) => {
 
   function handleClose() {
     setAnchorEl(null);
+  }
+
+  function handleEdit() {
+    navigate(`/edit/${post.id}`);
+    handleClose();
   }
 
   function handleDelete() {
@@ -77,14 +83,23 @@ const Post = ({ post }: PostProps) => {
           </IconButton>
         </div>
 
-        <div className="post-meta">
-          <span>{post.createdAt}</span>
-          <span>{post.editedAt}</span>
-        </div>
-
         <span className="post-body">{post.content}</span>
 
-        <PostActionBar />
+        <div className="post-footer">
+          <div className="post-meta">
+            <span>
+              Posted: {createdAt.date} {createdAt.time}
+            </span>
+
+            {editedAt && (
+              <span>
+                Edited: {editedAt.date} {editedAt.time}
+              </span>
+            )}
+          </div>
+
+          <PostActionBar />
+        </div>
       </div>
 
       <Menu
@@ -101,6 +116,13 @@ const Post = ({ post }: PostProps) => {
             <LinkIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Copy URL</ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={handleEdit}>
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
+          <ListItemText>Edit</ListItemText>
         </MenuItem>
 
         <MenuItem onClick={handleDelete}>
