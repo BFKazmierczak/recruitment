@@ -2,24 +2,24 @@ import React, { FormEvent, MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { createPost } from '@/src/mutations';
-import { addPosts } from '@/src/state/posts/postsSlice';
+import { createPost, updatePost } from '@/src/mutations';
+import { PostType } from '@/src/shared/types';
+import { addPosts, replacePost } from '@/src/state/posts/postsSlice';
 import '@/src/styles/main.scss';
-import { Button, colors, TextField, Tooltip } from '@mui/material';
+import { Box, Button, colors, Grid, TextField, Tooltip } from '@mui/material';
 
 const minLength = 10;
 const maxLength = 250;
 
 interface PostFormProps {
-  editing?: boolean;
-  initialContent?: string;
+  post?: PostType;
 }
 
-const PostForm = ({ editing = false, initialContent = '' }: PostFormProps) => {
+const PostForm = ({ post = undefined }: PostFormProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [content, setContent] = useState<string>(initialContent);
+  const [content, setContent] = useState<string>(post?.content ?? '');
 
   const lengthCheck = content.length <= maxLength && content.length >= minLength;
 
@@ -28,6 +28,18 @@ const PostForm = ({ editing = false, initialContent = '' }: PostFormProps) => {
 
     if (response.status === 0) {
       dispatch(addPosts([response.payload]));
+      navigate('/');
+    } else {
+      // do some toasting later
+      console.error(response.error);
+    }
+  }
+
+  async function handleSave(event: MouseEvent<HTMLButtonElement>) {
+    const response = await updatePost(post.id, content);
+
+    if (response.status === 0) {
+      dispatch(replacePost(response.payload));
       navigate('/');
     } else {
       // do some toasting later
@@ -59,18 +71,34 @@ const PostForm = ({ editing = false, initialContent = '' }: PostFormProps) => {
           onChange={(event) => setContent(event.target.value)}
         />
       </div>
-      <Tooltip title={lengthCheck ? '' : `A post must be between ${minLength} and ${maxLength} characters`}>
-        <div>
-          <Button variant="contained" fullWidth disabled={!lengthCheck} type="submit" onClick={handlePost}>
-            {editing ? 'Save changes' : 'Post it'}
-          </Button>
-        </div>
-      </Tooltip>
-      {editing && (
-        <Button variant="contained" fullWidth color="secondary">
-          Cancel editing
-        </Button>
-      )}
+
+      <Box>
+        <Grid container direction="column" spacing={1}>
+          <Grid item>
+            <Tooltip title={lengthCheck ? '' : `A post must be between ${minLength} and ${maxLength} characters`}>
+              <div>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disabled={!lengthCheck}
+                  type="submit"
+                  onClick={post ? handleSave : handlePost}
+                >
+                  {post ? 'Save changes' : 'Post it'}
+                </Button>
+              </div>
+            </Tooltip>
+          </Grid>
+
+          {post && (
+            <Grid item>
+              <Button variant="contained" fullWidth color="secondary" onClick={() => navigate('/')}>
+                Cancel editing
+              </Button>
+            </Grid>
+          )}
+        </Grid>
+      </Box>
     </div>
   );
 };
