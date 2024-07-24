@@ -7,7 +7,7 @@ import '@/src/styles/main.scss';
 import { PostType } from '../shared/types';
 
 const Root: FC = () => {
-  const posts = useLoaderData() as PostType[];
+  const { posts } = useLoaderData() as { posts: PostType[] };
 
   return (
     <div className="route">
