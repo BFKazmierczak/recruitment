@@ -29,13 +29,26 @@ export async function createPost(content: string): Promise<GenericResponse<PostT
   };
 }
 
-export async function updatePost(id: number, content: string) {
-  fetch('http://localhost:3000/api/posts', {
-    method: 'PUT',
-    body: JSON.stringify({
-      content,
-    }),
-  });
+export async function updatePost(id: number, content: string): Promise<GenericResponse<PostType>> {
+  try {
+    const response = await fetch(`http://localhost:3000/api/posts/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        content,
+      }),
+    });
+
+    if (!response.ok) return { status: 1, error: response.statusText };
+
+    const post = await response.json();
+
+    return {
+      status: 0,
+      payload: post,
+    };
+  } catch {
+    throw new Error('Unexpected error encountered while updating a post');
+  }
 }
 
 export async function deletePost(id: number) {
