@@ -1,4 +1,4 @@
-@use 'abstracts';
+@use 'abstracts' as *;
 @use 'base' as *;
 @use 'components' as *;
 @use 'layout' as *;
@@ -6,4 +6,10 @@
 body {
   margin: 0;
   font-family: $font-family-base;
+}
+
+::selection,
+::-moz-selection {
+  color: black;
+  background: $color-primary;
 }

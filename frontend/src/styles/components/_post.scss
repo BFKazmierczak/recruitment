@@ -8,6 +8,11 @@
   border-radius: 16px;
   box-shadow: $global-shadow-lg;
   font-weight: 300;
+  &[data-new] {
+    animation: flash 3s ease-in-out;
+    // border: 2px solid $color-primary;
+    // background-color: lighten($color-primary, 40%);
+  }
 }
 
 .post-author {
@@ -25,8 +30,17 @@
 }
 
 .post-meta {
-  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  font-size: 8px;
   font-weight: 200;
+}
+
+.post-footer {
+  display: flex;
+  align-items: center;
 }
 
 .post-body {
@@ -41,4 +55,13 @@
   width: 100%;
   gap: 5px;
   border-radius: 8px;
+}
+
+@keyframes flash {
+  0% {
+    background-color: lighten($color-primary, 20%); // Initial brighter flash
+  }
+  100% {
+    background-color: white; // Fade back to normal background
+  }
 }
