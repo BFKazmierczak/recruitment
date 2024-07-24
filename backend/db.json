@@ -1,33 +1,17 @@
 {
   "posts": [
     {
-      "content": "test post hello",
-      "createdAt": 1721759537495,
-      "id": 7
-    },
-    {
       "author": "bfkazmierczak@gmail.com",
-      "content": "test post hello",
-      "createdAt": 1721759683277,
-      "id": 8
-    },
-    {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "i am writing a test post",
-      "createdAt": 1721759728961,
-      "id": 9
-    },
-    {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "assholessss",
-      "createdAt": 1721765768529,
-      "id": 10
-    },
-    {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "Next stupid post",
-      "createdAt": 1721776204097,
+      "content": "This is my neighbour. He's pain in my assholes",
+      "createdAt": 1721803881283,
+      "editedAt": 1721803881283,
       "id": 11
+    },
+    {
+      "author": "bfkazmierczak@gmail.com",
+      "content": "dfasaaaaaaaaaaaaaaaaa",
+      "createdAt": 1721824863049,
+      "id": 12
     }
   ]
 }

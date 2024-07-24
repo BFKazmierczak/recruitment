@@ -4,4 +4,5 @@ export type PostType = {
   editedAt?: number;
   author: string;
   content: string;
+  new?: boolean;
 };
