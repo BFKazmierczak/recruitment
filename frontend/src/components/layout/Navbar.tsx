@@ -10,19 +10,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 const navbarOptions = [
-  <NavButton href="/" title="Home">
+  <NavButton key="home-nav" href="/" title="Home">
     <HomeIcon />
   </NavButton>,
-  <NavButton href="/explore" title="Explore">
+
+  <NavButton key="explore-nav" href="/explore" title="Explore">
     <SearchIcon />
   </NavButton>,
-  <NavButton href="/messages" title="Messages">
+
+  <NavButton key="messages-nav" href="/messages" title="Messages">
     <MailIcon />
   </NavButton>,
-  <NavButton href="/friends" title="Friends">
+
+  <NavButton key="friends-nav" href="/friends" title="Friends">
     <GroupIcon />
   </NavButton>,
-  <NavButton href="/settings" title="Settings">
+
+  <NavButton key="settings-nav" href="/settings" title="Settings">
     <SettingsIcon />
   </NavButton>,
 ];
