@@ -1,10 +1,15 @@
 import { MouseEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFetcher, useNavigate } from 'react-router-dom';
 
 import { deletePost } from '@/src/mutations';
 import { PostType } from '@/src/shared/types';
+import { removePost } from '@/src/state/posts/postsSlice';
+import { RootState } from '@/src/state/store';
 import '@/src/styles/main.scss';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import LinkIcon from '@mui/icons-material/Link';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
@@ -40,6 +45,24 @@ const modalStyle: SxProps = {
 };
 
 const Post = ({ post }: PostProps) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const conditionalProps = {
+    'data-new': post.new ? true : undefined,
+  };
+
+  const createdAt = {
+    date: new Date(post.createdAt).toLocaleDateString('pl-PL'),
+    time: new Date(post.createdAt).toLocaleTimeString('pl-PL'),
+  };
+
+  const editedAt = post.editedAt
+    ? {
+        date: new Date(post.editedAt).toLocaleDateString('pl-PL'),
+        time: new Date(post.editedAt).toLocaleTimeString('pl-PL'),
+      }
+    : undefined;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -65,13 +88,19 @@ const Post = ({ post }: PostProps) => {
     handleClose();
   }
 
-  function handlePostDelete() {
-    deletePost(post.id);
+  async function handlePostDelete() {
+    const ok = await deletePost(post.id);
+
+    if (ok) {
+      dispatch(removePost(post));
+      setModalOpen(false);
+      navigate('.', { replace: true });
+    }
   }
 
   return (
     <>
-      <div className="post">
+      <div {...conditionalProps} className="post">
         <div className="post-author">
           <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <AccountCircleIcon style={{ fontSize: '2rem' }} />
