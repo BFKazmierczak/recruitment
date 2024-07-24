@@ -1,28 +1,38 @@
 import React, { FormEvent, MouseEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import { createPost } from '@/src/mutations';
+import { addPosts } from '@/src/state/posts/postsSlice';
 import '@/src/styles/main.scss';
 import { Button, colors, TextField, Tooltip } from '@mui/material';
 
 const minLength = 10;
 const maxLength = 250;
 
-const PostForm = () => {
-  const [content, setContent] = useState<string>('');
+interface PostFormProps {
+  editing?: boolean;
+  initialContent?: string;
+}
+
+const PostForm = ({ editing = false, initialContent = '' }: PostFormProps) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [content, setContent] = useState<string>(initialContent);
 
   const lengthCheck = content.length <= maxLength && content.length >= minLength;
 
   async function handlePost(event: MouseEvent<HTMLButtonElement>) {
-    await fetch('http://localhost:3000/api/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        author: 'bfkazmierczak@gmail.com',
-        content,
-        createdAt: Date.now(),
-      }),
-    });
+    const response = await createPost(content);
+
+    if (response.status === 0) {
+      dispatch(addPosts([response.payload]));
+      navigate('/');
+    } else {
+      // do some toasting later
+      console.error(response.error);
+    }
   }
 
   return (
@@ -52,10 +62,15 @@ const PostForm = () => {
       <Tooltip title={lengthCheck ? '' : `A post must be between ${minLength} and ${maxLength} characters`}>
         <div>
           <Button variant="contained" fullWidth disabled={!lengthCheck} type="submit" onClick={handlePost}>
-            Post it
+            {editing ? 'Save changes' : 'Post it'}
           </Button>
         </div>
       </Tooltip>
+      {editing && (
+        <Button variant="contained" fullWidth color="secondary">
+          Cancel editing
+        </Button>
+      )}
     </div>
   );
 };
