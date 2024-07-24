@@ -1,17 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { store } from '@/src/state/store';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import Layout from './components/layout/Layout';
-import ErrorPage from './error-page';
-import { rootLoader } from './loaders';
-import Add from './routes/Add';
-import Messages from './routes/Messages';
-import Root from './routes/Root';
+import App from './App';
 
 const theme = createTheme({
   palette: {
@@ -28,35 +22,11 @@ const theme = createTheme({
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '/',
-        element: <Root />,
-        errorElement: <ErrorPage />,
-        loader: rootLoader,
-      },
-      {
-        path: '/messages',
-        element: <Messages />,
-      },
-      {
-        path: '/add',
-        element: <Add />,
-      },
-    ],
-  },
-]);
-
 root.render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <App />
       </Provider>
     </ThemeProvider>
   </StrictMode>,
