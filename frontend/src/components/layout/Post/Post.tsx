@@ -1,48 +1,24 @@
 import { MouseEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFetcher, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { deletePost } from '@/src/mutations';
+import { toast } from 'material-react-toastify';
+import 'material-react-toastify/dist/ReactToastify.css';
+
+import { deletePost } from '@/src/api_actions';
 import { PostType } from '@/src/shared/types';
 import { removePost } from '@/src/state/posts/postsSlice';
-import { RootState } from '@/src/state/store';
 import '@/src/styles/main.scss';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import LinkIcon from '@mui/icons-material/Link';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {
-  Backdrop,
-  Box,
-  Button,
-  Fade,
-  Grid,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Modal,
-  SxProps,
-} from '@mui/material';
+import { IconButton, SxProps } from '@mui/material';
 
 import PostActionBar from './PostActionBar';
+import PostMenu from './PostMenu';
 
 interface PostProps {
   post: PostType;
 }
-
-const modalStyle: SxProps = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  minWidth: 200,
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
 
 const Post = ({ post }: PostProps) => {
   const dispatch = useDispatch();
@@ -66,8 +42,6 @@ const Post = ({ post }: PostProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-
   const open = Boolean(anchorEl);
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
@@ -80,21 +54,40 @@ const Post = ({ post }: PostProps) => {
 
   function handleEdit() {
     navigate(`/edit/${post.id}`);
-    handleClose();
   }
 
-  function handleDelete() {
-    setModalOpen(true);
-    handleClose();
+  async function handleCopyUrl() {
+    try {
+      await navigator.clipboard.writeText(`https://localhost:8081/post/${post.id}`);
+      toast.success('Post URL copied to clipboard', {
+        position: 'top-center',
+        theme: 'dark',
+      });
+    } catch (err) {
+      toast.error("Couldn't copy the URL", {
+        position: 'top-center',
+        theme: 'dark',
+      });
+    }
   }
 
-  async function handlePostDelete() {
+  async function handleDelete() {
     const ok = await deletePost(post.id);
 
     if (ok) {
       dispatch(removePost(post));
-      setModalOpen(false);
+
+      toast.success('Post deleted successfully', {
+        position: 'top-center',
+        theme: 'dark',
+      });
+
       navigate('.', { replace: true });
+    } else {
+      toast.error("Couldn't delete the post", {
+        position: 'top-center',
+        theme: 'dark',
+      });
     }
   }
 
@@ -129,77 +122,21 @@ const Post = ({ post }: PostProps) => {
 
           <PostActionBar />
         </div>
+
+        <PostMenu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClick={handleClose}
+          onClose={handleClose}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onCopyUrl={handleCopyUrl}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        />
       </div>
-
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <LinkIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy URL</ListItemText>
-        </MenuItem>
-
-        <MenuItem onClick={handleEdit}>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          <ListItemText>Edit</ListItemText>
-        </MenuItem>
-
-        <MenuItem onClick={handleDelete}>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </Menu>
-
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={modalOpen}>
-          <Box sx={modalStyle}>
-            <h5>Are you sure want to delete the post?</h5>
-            <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <Button variant="contained" fullWidth color="error" size="small" onClick={handlePostDelete}>
-                  Yes, delete the post
-                </Button>
-              </Grid>
-
-              <Grid item>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  color="secondary"
-                  size="small"
-                  onClick={() => setModalOpen(false)}
-                >
-                  No, go back
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Fade>
-      </Modal>
     </>
   );
 };

@@ -2,6 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
+import { ToastContainer } from 'material-react-toastify';
+
 import { store } from '@/src/state/store';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -27,6 +29,7 @@ root.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <App />
+        <ToastContainer />
       </Provider>
     </ThemeProvider>
   </StrictMode>,

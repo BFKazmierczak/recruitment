@@ -2,35 +2,49 @@
 
 .navbar-container {
   position: fixed;
-  bottom: 5px;
+  bottom: 10px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.navbar-post-button {
-  box-shadow: $global-shadow-lg;
-  border-radius: 8px;
-  background-color: black;
-  color: white;
-  width: 40px;
-  &:hover {
-    background-color: lighten(black, $amount: 25%);
-  }
-  &:active {
-    background-color: $color-primary;
-  }
+// .navbar-post-button {
+//   display: flex;
+//   justify-items: center;
+//   box-shadow: $global-shadow-lg;
+//   border-radius: 50%;
+//   background-color: $color-primary;
+//   &:hover {
+//     background-color: lighten(black, $amount: 25%);
+//   }
+//   &:active {
+//     background-color: $color-primary;
+//   }
+// }
+
+.navbar-main-button-container {
+  position: absolute;
+  top: 50%; /* Position at the vertical center */
+  left: 50%; /* Position at the horizontal center */
+  transform: translate(-50%, -50%); /* Adjust for the element's own size */
+}
+
+.navbar-main-button {
+  border: 1px solid;
+  border-color: rgb(218, 218, 218);
 }
 
 .navbar {
   position: relative;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
+  width: 100%;
   margin-inline: 10px;
   width: 100%;
   padding-block: 10px;
   padding-inline: 40px;
-  justify-content: space-between;
   border-radius: 16px;
   background-color: white;
   border: 1px solid;

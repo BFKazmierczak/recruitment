@@ -1,15 +1,18 @@
 import { FC } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import '@/src/styles/main.scss';
 
 import Layout from './components/layout/Layout';
 import ErrorPage from './error-page';
 import { rootLoader } from './loaders';
+import authLoader from './loaders/authLoader';
 import postLoader from './loaders/postLoader';
 import Add from './routes/Add';
 import Edit from './routes/Edit';
+import Login from './routes/Login';
 import Messages from './routes/Messages';
+import Register from './routes/Register';
 import Root from './routes/Root';
 
 const router = createBrowserRouter([
@@ -17,6 +20,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
+    loader: authLoader,
     children: [
       {
         path: '/',
@@ -36,6 +40,14 @@ const router = createBrowserRouter([
         path: '/edit/:postId',
         element: <Edit />,
         loader: postLoader,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
     ],
   },

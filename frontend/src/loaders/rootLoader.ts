@@ -3,7 +3,7 @@ import { addPosts } from '../state/posts/postsSlice';
 import { store } from '../state/store';
 
 async function rootLoader({ params }) {
-  const { data: posts, previousLength } = store.getState().posts;
+  const { data: posts } = store.getState().posts;
 
   if (posts.length) {
     // _gt filter does is implemented in json-server >= 1.0.0 which does not work
