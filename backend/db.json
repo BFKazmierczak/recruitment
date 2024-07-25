@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "email": "bfkazmierczak@gmail.com",
+      "password": "$2a$10$gtQObAakUZScKx/dHcLufuRN4cVtHsranNZekGDxE8a5s7xSMsoCq",
+      "id": 1
+    }
+  ],
   "posts": [
     {
       "author": "bfkazmierczak@gmail.com",
@@ -11,13 +18,19 @@
       "author": "bfkazmierczak@gmail.com",
       "content": "Hello my name a borat",
       "createdAt": 1721840042740,
-      "id": 12
+      "id": 13
     },
     {
       "author": "bfkazmierczak@gmail.com",
-      "content": "Hello my name a borat",
-      "createdAt": 1721840042740,
-      "id": 13
+      "content": "afdsfasdfasdfasdf",
+      "createdAt": 1721903108030,
+      "id": 14
+    },
+    {
+      "author": "bfkazmierczak@gmail.com",
+      "content": "My name a Borat. Nice to meet you.",
+      "createdAt": 1721903140407,
+      "id": 15
     }
   ]
 }
