@@ -34,6 +34,7 @@ const modalStyle: SxProps = {
 interface PostProps {
   post: PostType;
   isOwner?: boolean;
+  actionsDisabled?: boolean;
 }
 
 /**
@@ -46,8 +47,9 @@ interface PostProps {
  *
  * @prop {PostType} post - The post data to display.
  * @prop {boolean} [isOwner=false] - Indicates if the current user is the post owner.
+ * @prop {boolean} [actionsDisabled=false] - if true, action bar is not rendered
  */
-const Post = ({ post, isOwner = false }: PostProps) => {
+const Post = ({ post, isOwner = false, actionsDisabled = false }: PostProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -150,7 +152,7 @@ const Post = ({ post, isOwner = false }: PostProps) => {
             {editedAt && <span>Edited: {editedAt}</span>}
           </div>
 
-          <PostActionBar bookmarkId={post.bookmarkId} postId={post.id} />
+          {!actionsDisabled && <PostActionBar bookmarkId={post.bookmarkId} postId={post.id} />}
         </div>
 
         <PostMenu
