@@ -2,10 +2,6 @@
 
 Welcome to my solution to the recruitment task!
 
-## Features
-
--
-
 ## Repository Structure
 
 The repository contains two main folders:
@@ -29,9 +25,7 @@ The repository contains two main folders:
 
 ### Backend
 
-The `Backend` folder contains a simple JSON server which will serve as an
-example API. This server allows you to perform CRUD operations on posts or any
-other structures you may need. To get the backend running, follow these steps:
+The `Backend` for auth and CRUD
 
 1. **Navigate to the Backend Folder**:
 
