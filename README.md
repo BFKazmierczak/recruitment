@@ -68,8 +68,14 @@ The `Backend` for auth and CRUD
    cd frontend
    yarn install
    ```
+   
+2. **Build**:
 
-2. **Start the Frontend Server**:
+   ```bash
+   yarn build
+   ```
+
+3. **Start the Frontend Server**:
 
    ```bash
    yarn preview
