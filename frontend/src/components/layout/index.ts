@@ -1,5 +1,5 @@
+import Post from '../display/Post/Post';
 import Board from './Board';
 import Navbar from './Navbar';
-import Post from './Post/Post';
 
 export { Navbar, Board, Post };

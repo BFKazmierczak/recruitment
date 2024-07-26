@@ -1,17 +1,24 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import { PostType } from '@/src/shared/types';
+import { RootState } from '@/src/state/store';
 import '@/src/styles/main.scss';
 
-import Post from './Post';
+import Post from '../display/Post';
 
-interface BoardProps {
-  posts: PostType[];
-}
+const Board = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { data: posts } = useSelector((state: RootState) => state.posts);
 
-const Board = ({ posts }: BoardProps) => {
+  useEffect(() => {
+    console.log('board rerendered');
+  });
+
   return (
     <div className="board">
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} isOwner={post.author === user.email} />
       ))}
     </div>
   );

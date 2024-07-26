@@ -15,22 +15,6 @@ import { Avatar, Grid, IconButton } from '@mui/material';
 const Navbar: FC = () => {
   const navigate = useNavigate();
 
-  const navbarOptions = [
-    <NavButton key="add-nav" href="/add" title="Add">
-      <Avatar variant="circular" color="primary">
-        <AddIcon />
-      </Avatar>
-    </NavButton>,
-
-    <NavButton key="friends-nav" href="/friends" title="Friends">
-      <GroupIcon />
-    </NavButton>,
-
-    <NavButton key="settings-nav" href="/settings" title="Settings">
-      <SettingsIcon />
-    </NavButton>,
-  ];
-
   function handleAdd(event: MouseEvent<SVGSVGElement>) {
     navigate('/add');
   }
@@ -52,7 +36,7 @@ const Navbar: FC = () => {
           </Grid>
 
           <div>
-            <NavButton key="add-nav" href="/add" title="Add">
+            <NavButton key="add-nav" href="/add" title="Add a Post">
               <AddIcon />
             </NavButton>
 

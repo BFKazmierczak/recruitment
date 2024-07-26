@@ -1,4 +1,4 @@
-import { PostType } from '@/src/shared/types';
+import { PostType, PostUpdatePayload } from '@/src/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface PostsState {
@@ -19,9 +19,14 @@ const postsSlice = createSlice({
       state.previousLength = state.data.length;
       state.data = [...action.payload, ...state.data];
     },
-    replacePost: (state, action: PayloadAction<PostType>) => {
+    replacePost: (state, action: PayloadAction<PostUpdatePayload>) => {
       const postIndex = state.data.findIndex((post) => post.id === action.payload.id);
-      if (postIndex >= 0) state.data[postIndex] = action.payload;
+      console.log({ postIndex });
+
+      if (postIndex >= 0) {
+        const post = state.data[postIndex];
+        state.data[postIndex] = { ...post, ...action.payload };
+      }
     },
     removePost: (state, action: PayloadAction<PostType>) => {
       state.previousLength = state.data.length;

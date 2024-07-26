@@ -1,16 +1,19 @@
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useFetcher, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { toast } from 'material-react-toastify';
 
 import { Button, Grid, Input } from '@mui/material';
 
-import { loginUser } from '../api_actions';
+import { loginUser } from '../api';
+import { login } from '../state/auth/authSlice';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -22,9 +25,11 @@ const Login = () => {
 
     if (response.status === 0) {
       toast.success('Successfully logged in', { position: 'top-center', theme: 'dark' });
-      console.log(response.payload);
-      dispatch(loginUser());
-      navigate('/');
+      dispatch(login(response.payload));
+
+      const redirectTo = searchParams.get('redirectTo') || '';
+
+      navigate(`/${redirectTo}`);
     } else {
       toast.error("Couldn't login", { position: 'top-center', theme: 'dark' });
     }

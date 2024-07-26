@@ -1,5 +1,9 @@
 .root-layout {
+  background-color: white;
+  width: 500px;
+  min-width: 250px;
   height: 100vh;
+  overflow-y: auto;
 }
 
 .root-layout main {

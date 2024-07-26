@@ -5,7 +5,7 @@ import { toast } from 'material-react-toastify';
 
 import { Button, Grid, Input } from '@mui/material';
 
-import { registerUser } from '../api_actions';
+import { registerUser } from '../api';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Register = () => {
       toast.success('Account successfully created. You can now log in.', { position: 'top-center', theme: 'dark' });
       navigate('/login');
     } else {
-      toast.error("Couldn't create an account", { position: 'top-center', theme: 'dark' });
+      toast.error(`Couldn't create an account: ${response.error}`, { position: 'top-center', theme: 'dark' });
     }
   }
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'material-react-toastify';
 
-import { createPost, updatePost } from '@/src/api_actions';
+import { createPost, updatePost } from '@/src/api';
 import { PostType } from '@/src/shared/types';
 import { addPosts, replacePost } from '@/src/state/posts/postsSlice';
 import '@/src/styles/main.scss';
@@ -42,10 +42,10 @@ const PostForm = ({ post = undefined }: PostFormProps) => {
 
     if (response.status === 0) {
       dispatch(replacePost(response.payload));
+      toast.success('Successfully updated', { position: 'top-center', theme: 'dark' });
       navigate('/');
     } else {
-      // do some toasting later
-      console.error(response.error);
+      toast.error(`Post update error: ${response.error}`, { position: 'top-center', theme: 'dark' });
     }
   }
 

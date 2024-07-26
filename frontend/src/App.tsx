@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import '@/src/styles/main.scss';
 import '@/src/styles/main.scss';
 
 import Layout from './components/layout/Layout';
@@ -9,9 +10,13 @@ import { rootLoader } from './loaders';
 import authLoader from './loaders/authLoader';
 import postLoader from './loaders/postLoader';
 import Add from './routes/Add';
+import Bookmarks from './routes/Bookmarks';
 import Edit from './routes/Edit';
+import Explore from './routes/Explore';
 import Login from './routes/Login';
 import Messages from './routes/Messages';
+import PostRoute from './routes/PostRoute';
+import Profile from './routes/Profile';
 import Register from './routes/Register';
 import Root from './routes/Root';
 
@@ -42,6 +47,11 @@ const router = createBrowserRouter([
         loader: postLoader,
       },
       {
+        path: '/post/:postId',
+        element: <PostRoute />,
+        loader: postLoader,
+      },
+      {
         path: '/login',
         element: <Login />,
       },
@@ -49,12 +59,28 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register />,
       },
+      {
+        path: '/profile',
+        element: <Profile />,
+      },
+      {
+        path: '/explore',
+        element: <Explore />,
+      },
+      {
+        path: '/bookmarks',
+        element: <Bookmarks />,
+      },
     ],
   },
 ]);
 
 const App: FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <div className="app-root">
+      <RouterProvider router={router} />
+    </div>
+  );
 };
 
 export default App;
