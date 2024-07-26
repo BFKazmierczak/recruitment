@@ -4,10 +4,7 @@ import { addPosts } from '../state/posts/postsSlice';
 import { store } from '../state/store';
 
 function getBookmarkId(bookmarks: BookmarkType[], userId) {
-  console.log('ID:', userId);
-  console.log({ bookmarks });
   const bookmark = bookmarks.find((bookmark) => bookmark.userId === userId);
-  console.log({ bookmark });
 
   return bookmark?.id;
 }

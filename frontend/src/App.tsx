@@ -8,13 +8,13 @@ import Layout from './components/layout/Layout';
 import ErrorPage from './error-page';
 import { rootLoader } from './loaders';
 import authLoader from './loaders/authLoader';
+import bookmarksLoader from './loaders/bookmarksLoader';
 import postLoader from './loaders/postLoader';
 import Add from './routes/Add';
 import Bookmarks from './routes/Bookmarks';
 import Edit from './routes/Edit';
 import Explore from './routes/Explore';
 import Login from './routes/Login';
-import Messages from './routes/Messages';
 import PostRoute from './routes/PostRoute';
 import Profile from './routes/Profile';
 import Register from './routes/Register';
@@ -32,10 +32,6 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         loader: rootLoader,
-      },
-      {
-        path: '/messages',
-        element: <Messages />,
       },
       {
         path: '/add',
@@ -70,6 +66,7 @@ const router = createBrowserRouter([
       {
         path: '/bookmarks',
         element: <Bookmarks />,
+        loader: bookmarksLoader,
       },
     ],
   },

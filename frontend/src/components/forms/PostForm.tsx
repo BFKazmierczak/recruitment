@@ -17,6 +17,16 @@ interface PostFormProps {
   post?: PostType;
 }
 
+/**
+ * PostForm Component
+ *
+ * Provides a form for creating or editing a post. Handles content input, validation,
+ * and submission to the backend.
+ *
+ * @component
+ *
+ * @prop {PostType} [post] - optional post data. If provided, edit mode is enabled
+ */
 const PostForm = ({ post = undefined }: PostFormProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +48,7 @@ const PostForm = ({ post = undefined }: PostFormProps) => {
   }
 
   async function handleSave(event: MouseEvent<HTMLButtonElement>) {
-    const response = await updatePost(post.id, content);
+    const response = await updatePost(post.id, { ...post, content, editedAt: Date.now() });
 
     if (response.status === 0) {
       dispatch(replacePost(response.payload));

@@ -12,7 +12,7 @@ import App from './App';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffd20c',
+      main: '#6c78e3',
       contrastText: '#000',
     },
     secondary: {

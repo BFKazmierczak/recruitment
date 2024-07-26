@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useFetcher, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'material-react-toastify';
 
@@ -33,7 +33,7 @@ const Profile = () => {
 
         <Grid item>
           <span>
-            Joined: <b>{user.createdAt}</b>
+            Joined: <b>{new Date(user.createdAt).toLocaleString('pl-PL')}</b>
           </span>
         </Grid>
 

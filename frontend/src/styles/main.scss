@@ -8,6 +8,10 @@ body {
   font-family: $font-family-base;
 }
 
+a {
+  color: darken($color-primary, 5%);
+}
+
 ::selection,
 ::-moz-selection {
   color: black;

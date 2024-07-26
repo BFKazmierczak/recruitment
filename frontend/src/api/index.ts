@@ -23,6 +23,7 @@ export async function registerUser(email: string, password: string): Promise<Gen
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        createdAt: Date.now(),
         email,
         password,
       }),
@@ -120,7 +121,7 @@ export async function createPost(content: string): Promise<GenericResponse<PostT
   }
 }
 
-export async function updatePost(id: number, content: string): Promise<GenericResponse<PostType>> {
+export async function updatePost(id: number, edited: PostType): Promise<GenericResponse<PostType>> {
   const { token: Authorization } = getUser();
 
   try {
@@ -130,9 +131,7 @@ export async function updatePost(id: number, content: string): Promise<GenericRe
         'Content-Type': 'application/json',
         Authorization,
       },
-      body: JSON.stringify({
-        content,
-      }),
+      body: JSON.stringify(edited),
     });
 
     if (!response.ok) return { status: 1, error: await response.json() };
@@ -173,10 +172,33 @@ export async function deletePost(id: number): Promise<GenericResponse<null>> {
   }
 }
 
-export async function saveBookmark(postId: number, name: string): Promise<GenericResponse<BookmarkType>> {
+export async function getBookarks(): Promise<GenericResponse<BookmarkType[]>> {
   const { token: Authorization, user } = getUser();
 
-  console.log({ postId, name });
+  try {
+    const response = await fetch(getApiUrl(`/api/bookmarks?userId=${user.id}`), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization,
+      },
+    });
+
+    if (!response.ok) return { status: 1, error: await response.json() };
+
+    const bookmarks = (await response.json()) as BookmarkType[];
+
+    return {
+      status: 0,
+      payload: bookmarks,
+    };
+  } catch (error) {
+    return { status: 1, error };
+  }
+}
+
+export async function saveBookmark(postId: number, name: string): Promise<GenericResponse<BookmarkType>> {
+  const { token: Authorization, user } = getUser();
 
   try {
     const response = await fetch(getApiUrl('/api/bookmarks'), {

@@ -18,7 +18,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Backdrop, Box, Button, Fade, Grid, IconButton, Modal, SxProps } from '@mui/material';
 
 import PostActionBar from './PostActionBar';
-import PostMenu from './PostMenu';
+import PostMenu, { PostAction } from './PostMenu';
 
 const modalStyle: SxProps = {
   position: 'absolute',
@@ -36,6 +36,17 @@ interface PostProps {
   isOwner?: boolean;
 }
 
+/**
+ * Post Component
+ *
+ * Displays a single post with author, content, creation and edition timestamps.
+ * Provides interaction with the post such as copying URL, editing, deleting.
+ *
+ * @component
+ *
+ * @prop {PostType} post - The post data to display.
+ * @prop {boolean} [isOwner=false] - Indicates if the current user is the post owner.
+ */
 const Post = ({ post, isOwner = false }: PostProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,37 +55,28 @@ const Post = ({ post, isOwner = false }: PostProps) => {
     'data-new': post.new ? true : undefined,
   };
 
-  const postActions = [
+  const postActions: PostAction[] = [
     {
       title: 'Copy URL',
       icon: <LinkIcon fontSize="small" />,
       handler: handleCopyUrl,
     },
     {
-      restricted: !isOwner,
+      hidden: !isOwner,
       title: 'Edit',
       icon: <EditIcon fontSize="small" />,
       handler: () => navigate(`/edit/${post.id}`),
     },
     {
-      restricted: !isOwner,
+      hidden: !isOwner,
       title: 'Delete',
       icon: <DeleteIcon fontSize="small" />,
       handler: () => setModalOpen(true),
     },
   ];
 
-  const createdAt = {
-    date: new Date(post.createdAt).toLocaleDateString('pl-PL'),
-    time: new Date(post.createdAt).toLocaleTimeString('pl-PL'),
-  };
-
-  const editedAt = post.editedAt
-    ? {
-        date: new Date(post.editedAt).toLocaleDateString('pl-PL'),
-        time: new Date(post.editedAt).toLocaleTimeString('pl-PL'),
-      }
-    : undefined;
+  const createdAt = new Date(post.createdAt).toLocaleString('pl-PL');
+  const editedAt = post.editedAt ? new Date(post.editedAt).toLocaleString('pl-PL') : undefined;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -143,15 +145,9 @@ const Post = ({ post, isOwner = false }: PostProps) => {
 
         <div className="post-footer">
           <div className="post-meta">
-            <span>
-              Posted: {createdAt.date} {createdAt.time}
-            </span>
+            <span>Posted: {createdAt}</span>
 
-            {editedAt && (
-              <span>
-                Edited: {editedAt.date} {editedAt.time}
-              </span>
-            )}
+            {editedAt && <span>Edited: {editedAt}</span>}
           </div>
 
           <PostActionBar bookmarkId={post.bookmarkId} postId={post.id} />

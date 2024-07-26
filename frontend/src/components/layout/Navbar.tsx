@@ -1,15 +1,12 @@
 import { FC, MouseEvent } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { NavButton } from '@/src/components/buttons';
 import AddIcon from '@mui/icons-material/Add';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
-import MailIcon from '@mui/icons-material/Mail';
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { Avatar, Grid, IconButton } from '@mui/material';
 
 const Navbar: FC = () => {
@@ -47,7 +44,7 @@ const Navbar: FC = () => {
                     className="navbar-main-button"
                     variant="circular"
                     color="primary"
-                    style={{ color: 'black', backgroundColor: '#ffd20c' }}
+                    style={{ color: 'black', backgroundColor: '#6c78e3' }}
                   >
                     <AddIcon />
                   </Avatar>

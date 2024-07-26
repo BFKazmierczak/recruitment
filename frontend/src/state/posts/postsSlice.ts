@@ -21,7 +21,6 @@ const postsSlice = createSlice({
     },
     replacePost: (state, action: PayloadAction<PostUpdatePayload>) => {
       const postIndex = state.data.findIndex((post) => post.id === action.payload.id);
-      console.log({ postIndex });
 
       if (postIndex >= 0) {
         const post = state.data[postIndex];

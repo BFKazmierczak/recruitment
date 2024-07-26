@@ -13,14 +13,17 @@ const bookmarksSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    setBookmarks: (state, action: PayloadAction<BookmarkType[]>) => {
+      state.data = action.payload;
+    },
     addBookmark: (state, action: PayloadAction<BookmarkType>) => {
       state.data = [action.payload, ...state.data];
     },
-    removeBookmark: (state, action: PayloadAction<BookmarkType>) => {
-      state.data = state.data.filter((bookmark) => bookmark.id !== action.payload.id);
+    removeBookmark: (state, action: PayloadAction<number>) => {
+      state.data = state.data.filter((bookmark) => bookmark.id !== action.payload);
     },
   },
 });
 
-export const { addBookmark, removeBookmark } = bookmarksSlice.actions;
+export const { setBookmarks, addBookmark, removeBookmark } = bookmarksSlice.actions;
 export default bookmarksSlice.reducer;

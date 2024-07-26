@@ -6,45 +6,42 @@ import { toast } from 'material-react-toastify';
 
 import { deleteBookmark, saveBookmark } from '@/src/api';
 import { addBookmark, removeBookmark } from '@/src/state/bookmarks/bookmarksSlice';
-import { addPosts, replacePost } from '@/src/state/posts/postsSlice';
+import { replacePost } from '@/src/state/posts/postsSlice';
 import '@/src/styles/main.scss';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import { Backdrop, Box, Button, Fade, Grid, IconButton, Modal, SxProps, Tooltip } from '@mui/material';
+import { Backdrop, Box, Button, Fade, Grid, IconButton, Input, Modal, SxProps, Tooltip } from '@mui/material';
 
-import ReplyWithComment from './ShareAndComment';
-
-const modalStyle: SxProps = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  minWidth: 200,
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
+import CustomModal from '../CustomModal';
 
 interface PostActionBarProps {
   postId: number;
   bookmarkId?: number;
 }
 
+/**
+ * PostActionBar Component
+ *
+ * Enables user to add a post to bookmark
+ *
+ * @component
+ *
+ * @prop {number} postId - ID of the associated post.
+ * @prop {number} [bookmarkId] - optional bookmark ID.
+ */
 const PostActionBar = ({ postId, bookmarkId = undefined }: PostActionBarProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [bookmarkName, setBookmarkName] = useState<string>('test bookmark');
+  const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
+
+  const [bookmarkName, setBookmarkName] = useState<string>('New bookmark');
 
   async function handleBookmarkAdd() {
     const response = await saveBookmark(postId, bookmarkName);
 
     if (response.status === 0) {
-      console.log({ bookmarkId });
-
       dispatch(
         replacePost({
           id: postId,
@@ -59,7 +56,7 @@ const PostActionBar = ({ postId, bookmarkId = undefined }: PostActionBarProps) =
   }
 
   async function handleBookmarkRemove() {
-    const response = await deleteBookmark(postId);
+    const response = await deleteBookmark(bookmarkId);
 
     if (response.status === 0) {
       dispatch(
@@ -68,11 +65,11 @@ const PostActionBar = ({ postId, bookmarkId = undefined }: PostActionBarProps) =
           bookmarkId: undefined,
         }),
       );
-      dispatch(removeBookmark(response.payload));
-      toast.success('Successfully added a bookmark', { position: 'top-center', theme: 'dark' });
+      dispatch(removeBookmark(bookmarkId));
+      toast.success('Successfully removed a bookmark', { position: 'top-center', theme: 'dark' });
       navigate('/'); // page refresh hack
     } else {
-      toast.error('Unable to add a bookmark', { position: 'top-center', theme: 'dark' });
+      toast.error('Unable to remove a bookmark', { position: 'top-center', theme: 'dark' });
     }
   }
 
@@ -81,7 +78,7 @@ const PostActionBar = ({ postId, bookmarkId = undefined }: PostActionBarProps) =
       <div className="post-action">
         {!bookmarkId && (
           <Tooltip title="Add To Bookmarks">
-            <IconButton size="small" onClick={() => handleBookmarkAdd()}>
+            <IconButton size="small" onClick={() => setCreateDialogOpen(true)}>
               <BookmarkBorderIcon style={{ fontSize: 16 }} />
             </IconButton>
           </Tooltip>
@@ -89,60 +86,91 @@ const PostActionBar = ({ postId, bookmarkId = undefined }: PostActionBarProps) =
 
         {bookmarkId && (
           <Tooltip title="Remove From Bookmarks">
-            <IconButton size="small" onClick={() => setModalOpen(true)}>
+            <IconButton size="small" onClick={() => setDeleteDialogOpen(true)}>
               <BookmarkIcon color="primary" style={{ fontSize: 16 }} />
             </IconButton>
           </Tooltip>
         )}
       </div>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={modalOpen}>
-          <Box sx={modalStyle}>
-            <h5>Are you sure want to remov the post from bookmarks?</h5>
-            <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  color="error"
-                  size="small"
-                  onClick={() => {
-                    setModalOpen(false);
-                    handleBookmark('remove');
-                  }}
-                >
-                  Yes, delete from bookmarks
-                </Button>
-              </Grid>
-
-              <Grid item>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  color="secondary"
-                  size="small"
-                  onClick={() => setModalOpen(false)}
-                >
-                  No, go back
-                </Button>
-              </Grid>
+      <CustomModal open={createDialogOpen} onClose={() => setCreateDialogOpen(false)}>
+        <h5>Please enter bookmark name</h5>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            setCreateDialogOpen(false);
+            handleBookmarkAdd();
+          }}
+        >
+          <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <Input
+                placeholder="Enter bookmark name"
+                fullWidth
+                value={bookmarkName}
+                onChange={(event) => setBookmarkName(event.target.value)}
+              />
             </Grid>
-          </Box>
-        </Fade>
-      </Modal>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                size="small"
+                disabled={!bookmarkName.length}
+                type="submit"
+              >
+                Add to bookmarks
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                fullWidth
+                color="secondary"
+                size="small"
+                onClick={() => setCreateDialogOpen(false)}
+              >
+                Go back
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </CustomModal>
+
+      <CustomModal open={deleteDialogOpen} onClose={() => setCreateDialogOpen(false)}>
+        <h5>Are you sure want to remove the bookmark?</h5>
+        <Grid container direction="column" spacing={1}>
+          <Grid item>
+            <Button
+              variant="contained"
+              fullWidth
+              color="error"
+              size="small"
+              onClick={() => {
+                setDeleteDialogOpen(false);
+                handleBookmarkRemove();
+              }}
+            >
+              Yes, delete from bookmarks
+            </Button>
+          </Grid>
+
+          <Grid item>
+            <Button
+              variant="contained"
+              fullWidth
+              color="secondary"
+              size="small"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
+              No, go back
+            </Button>
+          </Grid>
+        </Grid>
+      </CustomModal>
     </>
   );
 };

@@ -28,6 +28,7 @@ export type BookmarkType = {
 
 export type UserType = {
   id: number;
+  createdAt: number;
   email: string;
   accessToken: string;
 };
