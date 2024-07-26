@@ -70,6 +70,7 @@
     "start": "vite serve --port 8081",
     "start-server": "cd ../backend && yarn && yarn dev",
     "build": "vite build",
+    "preview": "vite preview --port 8081",
     "prettier:fix": "./node_modules/.bin/prettier './src/**/*.(ts|tsx|scss)' --write",
     "postinstall": "cd ../ && husky install ./frontend/.husky && cd frontend"
   },
