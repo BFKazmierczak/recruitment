@@ -72,7 +72,7 @@ The `Backend` for auth and CRUD
 2. **Start the Frontend Server**:
 
    ```bash
-   yarn start
+   yarn preview
    ```
 
    The application should run on `http://localhost:8081` or another port
