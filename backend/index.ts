@@ -1,14 +1,23 @@
 import express from 'express'
 import jsonServer from 'json-server'
+import auth from 'json-server-auth'
 
 import path from 'path'
 import cors from 'cors'
 
-const app = express()
 const port = process.env.PORT || 3000
 
-app.use(cors())
+const app = jsonServer.create()
+const router = jsonServer.router('db.json')
+const rules = auth.rewriter({
+  '/api/posts*': '/660/api/posts$1',
+  '/api/users*': '/000/api/users$1',
+  '/api/bookmarks*': '/600/api/bookmarks$1'
+})
 
+app.db = router.db
+
+app.use(cors())
 app.use(express.static(path.resolve('build')))
 
 app.use(function (_, res, next) {
@@ -21,7 +30,9 @@ app.use(function (_, res, next) {
   next()
 })
 
-app.use('/api', jsonServer.router('db.json'))
+app.use(rules)
+app.use(auth)
+app.use('/api', router)
 
 app.listen(port, () => {
   console.log(`server started on port ${port}`)

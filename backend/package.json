@@ -20,13 +20,14 @@
     "typescript": "^5.5.3"
   },
   "scripts": {
-    "dev": "nodemon"
+    "build": "tsc",
+    "start": "nodemon"
   },
   "nodemonConfig": {
     "watch": [
       "src"
     ],
-    "exec": "tsc && node ./dist/index.js",
+    "exec": "node ./dist/index.js",
     "ext": "ts,js,json"
   }
 }

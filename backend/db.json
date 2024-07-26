@@ -4,33 +4,251 @@
       "email": "bfkazmierczak@gmail.com",
       "password": "$2a$10$gtQObAakUZScKx/dHcLufuRN4cVtHsranNZekGDxE8a5s7xSMsoCq",
       "id": 1
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$X/LWHSwCidenU5x05DjKXO/OxqykGzCEWKAjBUhPJcQliVbz7gJnW",
+      "id": 2
+    },
+    {
+      "email": "bart@test.com",
+      "password": "$2a$10$tpwpms.hmUy6ENtV9gcEquAWLwWGJrYPj0KHu6MqmEDK2j8QVEQ46",
+      "id": 3
     }
   ],
   "posts": [
     {
+      "userId": 2,
+      "author": "test@test.com",
+      "content": "Hello, man",
+      "createdAt": 1721935560899,
+      "id": 20
+    },
+    {
+      "content": "Another wonderful post from me... (This was edited)",
+      "id": 21
+    },
+    {
+      "userId": 1,
       "author": "bfkazmierczak@gmail.com",
-      "content": "This is my neighbour. He's pain in my assholes",
-      "createdAt": 1721803881283,
-      "editedAt": 1721803881283,
+      "content": "Test postttt",
+      "createdAt": 1721950043057,
+      "id": 22
+    },
+    {
+      "userId": 1,
+      "author": "bfkazmierczak@gmail.com",
+      "content": "Teeeeeeeeeeeeeeeeeeeeest",
+      "createdAt": 1721950993728,
+      "id": 23
+    },
+    {
+      "userId": 1,
+      "author": "bfkazmierczak@gmail.com",
+      "content": "bbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "createdAt": 1721951158107,
+      "id": 24
+    },
+    {
+      "userId": 1,
+      "author": "bfkazmierczak@gmail.com",
+      "content": "Teeeeeeeeeeeeeest",
+      "createdAt": 1721951332040,
+      "id": 25
+    },
+    {
+      "userId": 1,
+      "author": "bfkazmierczak@gmail.com",
+      "content": "aaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "createdAt": 1721951436826,
+      "id": 26
+    },
+    {
+      "userId": 1,
+      "author": "bfkazmierczak@gmail.com",
+      "content": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "createdAt": 1721951445871,
+      "id": 27
+    }
+  ],
+  "bookmarks": [
+    {
+      "userId": 1,
+      "name": "test bookmark",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "name": "test bookmark",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "postId": 22,
+      "name": "test bookmark",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "postId": 21,
+      "name": "test bookmark",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 9
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 10
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
       "id": 11
     },
     {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "Hello my name a borat",
-      "createdAt": 1721840042740,
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
       "id": 13
     },
     {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "afdsfasdfasdfasdf",
-      "createdAt": 1721903108030,
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
       "id": 14
     },
     {
-      "author": "bfkazmierczak@gmail.com",
-      "content": "My name a Borat. Nice to meet you.",
-      "createdAt": 1721903140407,
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
       "id": 15
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 16
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 17
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 18
+    },
+    {
+      "userId": 1,
+      "postId": 20,
+      "name": "test bookmark",
+      "id": 19
+    },
+    {
+      "userId": 1,
+      "postId": 23,
+      "name": "test bookmark",
+      "id": 20
+    },
+    {
+      "userId": 1,
+      "postId": 23,
+      "name": "test bookmark",
+      "id": 21
+    },
+    {
+      "userId": 1,
+      "postId": 24,
+      "name": "test bookmark",
+      "id": 22
+    },
+    {
+      "userId": 1,
+      "postId": 25,
+      "name": "test bookmark",
+      "id": 23
+    },
+    {
+      "userId": 1,
+      "postId": 25,
+      "name": "test bookmark",
+      "id": 24
+    },
+    {
+      "userId": 1,
+      "postId": 25,
+      "name": "test bookmark",
+      "id": 25
+    },
+    {
+      "userId": 1,
+      "postId": 27,
+      "name": "test bookmark",
+      "id": 26
+    },
+    {
+      "userId": 1,
+      "postId": 26,
+      "name": "test bookmark",
+      "id": 27
+    },
+    {
+      "userId": 3,
+      "postId": 27,
+      "name": "test bookmark",
+      "id": 28
+    },
+    {
+      "userId": 1,
+      "postId": 26,
+      "name": "test bookmark",
+      "id": 29
+    },
+    {
+      "userId": 1,
+      "postId": 27,
+      "name": "test bookmark",
+      "id": 30
     }
   ]
 }
