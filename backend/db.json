@@ -7,28 +7,6 @@
       "id": 1
     }
   ],
-  "posts": [
-    {
-      "userId": 1,
-      "author": "admin@local.com",
-      "content": "aaaaaaaaaaaaaaaaaa editing the post",
-      "createdAt": 1721989068095,
-      "id": 1,
-      "editedAt": 1721989214021
-    }
-  ],
-  "bookmarks": [
-    {
-      "userId": 1,
-      "postId": 1,
-      "name": "New bookmark1234",
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "postId": 1,
-      "name": "New bookmark",
-      "id": 2
-    }
-  ]
+  "posts": [],
+  "bookmarks": []
 }

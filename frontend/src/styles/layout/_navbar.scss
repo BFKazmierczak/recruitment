@@ -1,4 +1,5 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .navbar-container {
   position: fixed;
@@ -7,6 +8,10 @@
   justify-content: center;
   width: 100%;
   max-width: 500px;
+  @include responsive(lg) {
+    top: 10px;
+    bottom: unset;
+  }
 }
 
 // .navbar-post-button {

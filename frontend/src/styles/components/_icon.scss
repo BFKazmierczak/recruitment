@@ -1,0 +1,8 @@
+@use '../abstracts/mixins' as *;
+
+.icon {
+  font-size: 60px;
+  // @include responsive(lg) {
+  //   font-size: 60px;
+  // }
+}

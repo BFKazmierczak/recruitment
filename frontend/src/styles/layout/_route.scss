@@ -1,5 +1,10 @@
+@use '../abstracts/mixins' as *;
+
 .route {
   padding-inline: 20px;
   height: auto;
   overflow-y: auto;
+  @include responsive(lg) {
+    margin-top: 50px;
+  }
 }

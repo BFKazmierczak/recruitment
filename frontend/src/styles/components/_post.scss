@@ -1,8 +1,10 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .post {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 4px;
   word-break: normal;
   padding: 15px;
@@ -11,8 +13,9 @@
   font-weight: 300;
   &[data-new] {
     animation: flash 3s ease-in-out;
-    // border: 2px solid $color-primary;
-    // background-color: lighten($color-primary, 40%);
+  }
+  @include responsive(lg) {
+    height: 150px;
   }
 }
 
@@ -31,6 +34,9 @@
   [data-owner='user'] {
     color: darken($color-primary, 10%);
   }
+  @include responsive(lg) {
+    font-size: 18px;
+  }
 }
 
 .post-meta {
@@ -40,6 +46,9 @@
   width: 100%;
   font-size: 8px;
   font-weight: 200;
+  @include responsive(lg) {
+    font-size: 12px;
+  }
 }
 
 .post-footer {
@@ -49,7 +58,10 @@
 
 .post-body {
   font-weight: 500;
-  font-size: 13px;
+  font-size: 15px;
+  @include responsive(lg) {
+    font-size: 24px;
+  }
 }
 
 .post-action {

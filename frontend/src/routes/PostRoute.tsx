@@ -6,8 +6,6 @@ import { PostType } from '../shared/types';
 const PostRoute = () => {
   const post = useLoaderData() as PostType;
 
-  console.log({ post });
-
   return (
     <div className="route" style={{ height: '50vh' }}>
       <h2>Post {post.id}</h2>
