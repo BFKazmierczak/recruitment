@@ -58,8 +58,6 @@ The `Backend` for auth and CRUD
    
 ### Frontend
 
-## Getting Started
-
 1. **Install Dependencies**:
 
    - Navigate to the `Frontend` folder and install the required dependencies.
