@@ -58,29 +58,7 @@ The `Backend` for auth and CRUD
    
 ### Frontend
 
-The `Frontend` folder is where you will create your application. Your task is to
-build a simple Twitter-like application with the following requirements:
-
-1. **Display Posts**:
-
-   - Fetch and display a list of posts from the backend server.
-
-2. **Create Post**:
-
-   - Provide a form to create a new post. The new post should be sent to the
-     backend server and added to the list of posts.
-   - Example to create a post: Send a POST request to `/api/posts`.
-
-3. **Update Post**:
-
-   - Allow users to edit an existing post. The updated post should be sent to
-     the backend server and updated in the list.
-
-4. **Delete Post**:
-   - Allow users to delete a post. The deletion should be sent to the backend
-     server and the post should be removed from the list.
-
-### Getting Started
+## Getting Started
 
 1. **Install Dependencies**:
 
