@@ -55,11 +55,7 @@ The `Backend` for auth and CRUD
 
    The server will run on `http://localhost:3000` and provide auth and CRUD
    endpoints.
-
-   ```
-
-   ```
-
+   
 ### Frontend
 
 The `Frontend` folder is where you will create your application. Your task is to
